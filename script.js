@@ -10,6 +10,7 @@ var valid_image = /.*\.(png|svg|jpg|jpeg|bmp)$/i;
 function show_prompt(text) {
   var password_container = document.querySelector("#password_container");
   var password_entry = document.querySelector("#password_entry");
+
   if (!isVisible(password_container)) {
     var users = document.querySelectorAll(".user");
     var user_node = document.querySelector("#"+selected_user);
@@ -119,6 +120,11 @@ function show_users() {
   }
   setVisible(document.querySelector("#password_container"), false);
   selected_user = null;
+
+  if (users.length == 1) {
+      selected_user = users[0].id;
+      start_authentication(users[0].id);
+  }
 }
 
 function user_clicked(event) {
@@ -173,7 +179,7 @@ function initialize() {
   show_message("");
   initialize_users();
   initialize_timer();
-  //initialize_sessions();
+  initialize_sessions();
 }
 
 function on_image_error(e) {
